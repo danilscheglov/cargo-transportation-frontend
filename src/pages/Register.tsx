@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useAuth } from '../contexts/AuthContext';
 import type { RegisterRequest } from '../types/auth.types';
 
@@ -14,18 +15,19 @@ const Register: React.FC = () => {
     surname: '',
     patronymic: '',
     phone: '',
-    role: 'CLIENT'
+    role: 'CLIENT',
   });
   const [showPassword, setShowPassword] = useState(false);
 
   const formatPhoneNumber = (value: string): string => {
     const numbers = value.replace(/\D/g, '');
     if (!numbers) return '';
-    
+
     if (numbers.length <= 1) return '+7';
     if (numbers.length <= 4) return `+7 (${numbers.slice(1)}`;
     if (numbers.length <= 7) return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4)}`;
-    if (numbers.length <= 9) return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
+    if (numbers.length <= 9)
+      return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7)}`;
     return `+7 (${numbers.slice(1, 4)}) ${numbers.slice(4, 7)}-${numbers.slice(7, 9)}-${numbers.slice(9, 11)}`;
   };
 
@@ -35,16 +37,16 @@ const Register: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     if (name === 'phone') {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        [name]: formatPhoneNumber(value)
+        [name]: formatPhoneNumber(value),
       }));
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -57,7 +59,7 @@ const Register: React.FC = () => {
     try {
       const dataToSend = {
         ...formData,
-        phone: cleanPhoneNumber(formData.phone)
+        phone: cleanPhoneNumber(formData.phone),
       };
       await register(dataToSend);
     } catch (err) {
@@ -172,7 +174,7 @@ const Register: React.FC = () => {
                   </label>
                   <div className="input-group">
                     <input
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       className="form-control"
                       id="password"
                       name="password"
@@ -192,14 +194,14 @@ const Register: React.FC = () => {
                     </button>
                   </div>
                 </div>
-                <button 
-                  type="submit" 
-                  className="btn btn-primary w-100 mb-2"
-                  disabled={loading}
-                >
+                <button type="submit" className="btn btn-primary w-100 mb-2" disabled={loading}>
                   {loading ? (
                     <>
-                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
                       Регистрация...
                     </>
                   ) : (

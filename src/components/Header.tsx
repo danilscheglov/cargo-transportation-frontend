@@ -1,8 +1,18 @@
 import { Link } from 'react-router-dom';
+
 import { useAuth } from '../contexts/AuthContext';
+
+type UserRole = 'CLIENT' | 'MECHANIC' | 'DISPATCHER' | 'DRIVER';
 
 const Header = () => {
   const { isAuthenticated, logout, user } = useAuth();
+
+  const roleTranslations: Record<UserRole, string> = {
+    CLIENT: 'Клиент',
+    MECHANIC: 'Механик',
+    DISPATCHER: 'Диспетчер',
+    DRIVER: 'Водитель',
+  };
 
   return (
     <header className="navbar navbar-expand-lg" style={{ backgroundColor: '#1a237e' }}>
@@ -39,20 +49,36 @@ const Header = () => {
               </>
             ) : (
               <>
+                {user?.role === 'CLIENT' && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link text-white" to="/my-orders">
+                        <i className="bi bi-list-ul me-1"></i>
+                        Мои заказы
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link text-white" to="/create-order">
+                        <i className="bi bi-plus-lg me-1"></i>
+                        Создать заказ
+                      </Link>
+                    </li>
+                  </>
+                )}
                 <li className="nav-item">
                   <span className="nav-link text-white">
                     <i className="bi bi-person me-1"></i>
                     {user?.name} {user?.surname}
                     {user?.role && (
                       <span className="badge bg-light text-primary ms-2">
-                        {user.role === 'CLIENT' ? 'Клиент' : user.role}
+                        {roleTranslations[user.role as UserRole] || user.role}
                       </span>
                     )}
                   </span>
                 </li>
                 <li className="nav-item">
-                  <button 
-                    className="nav-link text-white" 
+                  <button
+                    className="nav-link text-white"
                     onClick={logout}
                     style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                   >

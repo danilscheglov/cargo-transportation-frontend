@@ -13,9 +13,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface AuthResponse {
-  token: string;
-}
+export type AuthResponse = string;
 
 export interface User {
   id: number;
@@ -31,4 +29,4 @@ export interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
-} 
+}

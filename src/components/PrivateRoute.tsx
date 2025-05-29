@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+
 import { useAuth } from '../contexts/AuthContext';
 
 interface PrivateRouteProps {
@@ -13,4 +14,4 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   }
 
   return <>{children}</>;
-}; 
+};

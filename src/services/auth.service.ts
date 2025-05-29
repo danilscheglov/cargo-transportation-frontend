@@ -1,4 +1,5 @@
 import type { AxiosError, AxiosResponse } from 'axios';
+
 import { axiosInstance } from '../api/axios';
 import type { AuthResponse, LoginRequest, RegisterRequest } from '../types/auth.types';
 
@@ -44,4 +45,4 @@ class AuthService {
   }
 }
 
-export const authService = new AuthService(); 
+export const authService = new AuthService();

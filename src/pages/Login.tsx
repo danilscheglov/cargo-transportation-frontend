@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useAuth } from '../contexts/AuthContext';
 import type { LoginRequest } from '../types/auth.types';
 
@@ -72,7 +73,7 @@ const Login: React.FC = () => {
                   </label>
                   <div className="input-group">
                     <input
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       className="form-control"
                       id="password"
                       name="password"
@@ -90,14 +91,14 @@ const Login: React.FC = () => {
                     </button>
                   </div>
                 </div>
-                <button 
-                  type="submit" 
-                  className="btn btn-primary w-100 mb-3"
-                  disabled={loading}
-                >
+                <button type="submit" className="btn btn-primary w-100 mb-3" disabled={loading}>
                   {loading ? (
                     <>
-                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
                       Вход...
                     </>
                   ) : (

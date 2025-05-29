@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { axiosInstance } from '../api/axios';
 import { authService } from '../services/auth.service';
 import type { AuthState, LoginRequest, RegisterRequest, User } from '../types/auth.types';
@@ -40,10 +41,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const initializeAuth = async () => {
+    const token = authService.getToken();
+    if (token) {
+      try {
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        await getCurrentUser(decodedToken.sub);
+        setState((prev) => ({
+          ...prev,
+          isAuthenticated: true,
+          token,
+        }));
+      } catch (error) {
+        console.error('Error initializing auth:', error);
+        logout();
+      }
+    }
+  };
+
+  useEffect(() => {
+    initializeAuth();
+  }, []);
+
   const login = async (data: LoginRequest) => {
     try {
       const response = await authService.login(data);
-      const token = response.data.token;
+      const token = response.data;
       authService.setToken(token);
       await getCurrentUser(data.email);
       setState((prev) => ({
@@ -86,4 +109,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}; 
+};
