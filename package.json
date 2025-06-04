@@ -13,17 +13,21 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@react-pdf/font": "^4.0.2",
     "@types/axios": "^0.14.4",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.6.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/bootstrap": "^5.2.10",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/react-router-dom": "^5.3.3",
@@ -35,6 +39,6 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "^3.5.3",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.4.19"
   }
 }

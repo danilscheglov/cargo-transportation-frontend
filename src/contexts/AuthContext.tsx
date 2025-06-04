@@ -27,6 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user: null,
     token: authService.getToken(),
     isAuthenticated: authService.isAuthenticated(),
+    isLoading: true,
   });
 
   const getCurrentUser = async (email: string) => {
@@ -51,13 +52,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           ...prev,
           isAuthenticated: true,
           token,
+          isLoading: false,
         }));
       } catch (error) {
         console.error('Error initializing auth:', error);
         logout();
       }
+    } else {
+      setState((prev) => ({ ...prev, isLoading: false }));
     }
   };
+
 
   useEffect(() => {
     initializeAuth();
@@ -97,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user: null,
       token: null,
       isAuthenticated: false,
+      isLoading: false,
     });
     navigate('/login');
   };

@@ -1,25 +1,32 @@
+import type { Car } from './car.types.ts';
+import type { User } from './auth.types.ts';
+
 export interface Order {
   id: number;
-  clientId: number;
-  status: OrderStatus;
-  fromAddress: string;
-  toAddress: string;
-  cargoType: string;
-  weight: number;
-  volume: number;
+  email: number;
+  client: User;
+  car?: Car | null;
+  status: string;
+  startpoint: string;
+  endpoint: string;
   createdAt: string;
   departureDate: string;
   deliveryDate: string;
+  cargo: Cargo;
 }
 
-export type OrderStatus = 'NEW' | 'IN_PROGRESS' | 'COMPLETED';
-
 export interface CreateOrderRequest {
-  fromAddress: string;
-  toAddress: string;
-  cargoType: string;
+  startpoint: string;
+  endpoint: string;
+  status: string;
+  dispatchDate: string;
+  deliveryDate: string;
+  email: string;
+  cargo: Cargo;
+}
+
+export interface Cargo {
   weight: number;
   volume: number;
-  departureDate: string;
-  deliveryDate: string;
+  type: string;
 }

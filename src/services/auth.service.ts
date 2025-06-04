@@ -38,6 +38,19 @@ class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = atob(payloadBase64);
+      const payload = JSON.parse(decodedPayload);
+
+      if (payload.sub) {
+        localStorage.setItem('email', payload.sub);
+      } else {
+        console.warn('Поле "sub" (email) отсутствует в токене');
+      }
+    } catch (error) {
+      console.error('Ошибка при разборе JWT:', error);
+    }
   }
 
   isAuthenticated(): boolean {
